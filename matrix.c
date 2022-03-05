@@ -157,7 +157,6 @@ int main(int argc, char *argv[]){
 
     if(par_id==0){
         //TODO: init the shared memory for A,B,C, ready. shm_open with C_CREAT here! then ftruncate! then mmap
-        gettimeofday(&s, NULL);
 
         fd[0] = shm_open("matrixA", O_RDWR|O_CREAT, 00777);
         fd[1] = shm_open("matrixB", O_RDWR|O_CREAT, 00777);
@@ -210,6 +209,8 @@ int main(int argc, char *argv[]){
 
     next = synch(par_id, par_count, ready, next, last);
     last = next - 1;
+
+    if(par_id==0)gettimeofday(&s, NULL); //start timer
     // Each process gets a start and end index from 0-99 that corresponds to the Resultant matrix (C)
     // based on how many processes are running
     split_tasks(par_id, par_count, index_zone);
@@ -226,6 +227,7 @@ int main(int argc, char *argv[]){
     last = next - 1;
 
     if(par_id==0){
+        gettimeofday(&e, NULL); // end timer
         //quadratic_matrix_print(C);
         float M[MATRIX_DIMENSION_XY * MATRIX_DIMENSION_XY];
         quadratic_matrix_multiplication(A, B, M);
@@ -235,11 +237,9 @@ int main(int argc, char *argv[]){
         else
         	fprintf(stderr, "buuug!\n");
 
-        gettimeofday(&e, NULL);
- 
         long seconds = (e.tv_sec - s.tv_sec);
         long micros = ((seconds * 1000000) + e.tv_usec) - (s.tv_usec);
-        printf("Time taken for multiplication (SS.MS):\n\t %d.%d\n", seconds, micros);
+        printf("Time taken for actual multiplication (SS.MS):\n\t %d.%d\n", seconds, micros);
     }
     //fprintf(stderr, "Process %d is finished!\n", par_id);
 
