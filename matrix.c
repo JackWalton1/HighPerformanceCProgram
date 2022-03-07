@@ -239,7 +239,7 @@ int main(int argc, char *argv[]){
 
         long seconds = (e.tv_sec - s.tv_sec);
         long micros = ((seconds * 1000000) + e.tv_usec) - (s.tv_usec);
-        printf("Time taken for actual multiplication (SS.MS):\n\t %d.%d\n", seconds, micros);
+        printf("Time taken for actual multiplication (SS.MS):\n\t %ld.%ld\n", seconds, micros);
     }
     //fprintf(stderr, "Process %d is finished!\n", par_id);
 
