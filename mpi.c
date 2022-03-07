@@ -12,7 +12,6 @@ int main(int argc, char* argv[]){
         fprintf(stderr, "Not enough arguments\n");
         return -1;
     }
-    char* const* arguments;
     int pid;
     int par_id = 0;
     char* program_name = argv[1];
