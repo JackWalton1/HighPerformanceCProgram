@@ -1,5 +1,5 @@
 # HighPerformanceCProgram
-Uses execv() to split up task of matrix multiplication
+Uses the Linux system command "execv()" to split up task of matrix multiplication to multiple processes
 
 [assignment 5-1.pdf](https://github.com/JackWalton1/HighPerformanceCProgram/files/8188999/assignment.5-1.pdf)
 
